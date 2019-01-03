@@ -25,6 +25,7 @@ If you need to add additional columns, the process is:
     [string]$SQLColExample = "Example"  
 ```
 
+
 2. Add your new column name parameter to the SQL query.
 ```
 # Prepare the SQL Query
@@ -40,6 +41,7 @@ $SQLQuery = "SELECT [$SQLColEmail],
 Note that the last column name should not include a trailing comma.
 If you did not create a parameter in step 1, just enter the column name in squre brackets. e.g. `[Example]`
 
+
 3. Add the new column to $BodyMergeFields. The key name is the name of the column in the MailChimp list.
 ```    
 # Build the API request body for this customer - fill out an array to convert to JSON later
@@ -52,3 +54,17 @@ If you did not create a parameter in step 1, just enter the column name in squre
     }
 ```
 Again, if you did not create a parameter in step 1, just add the column name. e.g. `EXAMPLE	    =	$CustData[$i].Example`
+
+
+4. If your new column is a date field you will need to format it correctly for MailChimp's API.
+The following code can be included after $BodyMergeFields is defined:
+```
+    # Format the dates correctly. Check the date fields are not DBNull objects as this will cause an error. Set them to an empty string if so.
+    If ( $BodyMergeFields.EXAMPLE.getType().Name -eq "DBNull" ) {
+        $BodyMergeFields.EXAMPLE = ""
+    } Else {
+        $BodyMergeFields.EXAMPLE = $BodyMergeFields.DATE|Get-Date -UFormat %Y/%m/%d
+    }
+    
+```
+    
