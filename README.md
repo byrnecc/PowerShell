@@ -10,7 +10,7 @@ The script includes detailed help text and supports -Verbose and -Debug paramete
 This script currently only reads the SQL columns Email, FirstName, LastName, Title, and AgreedToPromotions.
 If you need to add additional columns, the process is:
 
-1. *Optional* Add a parameter for the column name to the end of the [CmdletBinding()]Param( section.
+1. *Optional* Add a parameter for the column name to the end of the `[CmdletBinding()]Param(` section.
 ```    
 #Name of the column in the SQL table that contains the customer's Example. Default value is 'Example'.
     [Parameter(HelpMessage="Name of the column in the SQL table that contains the customer's Example.")]
@@ -51,4 +51,4 @@ If you did not create a parameter in step 1, just enter the column name in squre
         EXAMPLE	    =	$CustData[$i].$SQLColExample;
     }
 ```
-Again, if you did not create a parameter in step 1, just add the column name. e.g. ` EXAMPLE	    =	$CustData[$i].Example;
+Again, if you did not create a parameter in step 1, just add the column name. e.g. `EXAMPLE	    =	$CustData[$i].Example`
